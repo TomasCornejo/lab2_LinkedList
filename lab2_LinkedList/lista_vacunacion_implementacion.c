@@ -69,8 +69,6 @@ int obtenerNumeroUltimoPaciente(listaVacunacion head){
 //TODO
 //float obtenerPromedioDeTiempoEspera(listaVacunacion);
 
-
-//TODO Pasar a DRY!!
 void imprimirlistaVacunacion(listaVacunacion head){
    if(esVacia(head)){
         printf("Esta lista est� vacia\n");
@@ -105,7 +103,11 @@ void imprimirlistaVacunacion(listaVacunacion head){
 //    }
 //};
 
-//TODO
-//listaVacunacion vacunar(listaVacunacion head, int Tiempo){
-//    listaVacunacion pivotPaciente = head;
-//};
+
+listaVacunacion vacunar(listaVacunacion head, int Tiempo){
+    listaVacunacion pivotPaciente = head;
+    
+    
+    
+    return pivotPaciente;
+};
