@@ -1,14 +1,21 @@
-//
-//  main.c
-//  lab2_LinkedList
-//
-//  Created by Tomas Cornejo on 08-06-22.
-//
-
 #include <stdio.h>
+#include <stdlib.h>
+#include "lista_vacunacion.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+int main(){
+    printf("Comienza Ejecucion\n");
+
+    listaVacunacion listaSimulada = inicializaListaVacunacion();
+
+    listaSimulada = agregaPaciente(listaSimulada , 4);
+    listaSimulada = agregaPaciente(listaSimulada , 4);
+    listaSimulada = agregaPaciente(listaSimulada , 4);
+    listaSimulada = agregaPaciente(listaSimulada , 4);
+    listaSimulada = agregaPaciente(listaSimulada , 4);
+    
+    imprimirlistaVacunacion(listaSimulada);
+    
+    printf("Fin Ejecucion\n");
+
     return 0;
 }
