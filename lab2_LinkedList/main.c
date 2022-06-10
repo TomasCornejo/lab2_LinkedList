@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "lista_vacunacion.h"
+#include "listaVacunacion.h"
 
 //Declaracion previa de funciones
 listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float ProbabilidadAtender);
-int atender(float umbralACheckear);
+int atender(float umbralACheckear,  int tiempo);
 
 
 //Funcion Principal
@@ -16,10 +16,14 @@ int main(){
     // Declaracion de Variables de Entrada
     int TIEMPO_SIMULACION = 50;
     int INTERVALO_LLEGADA = 7;
-    float PROB_ATENDER = 0.25;
+    float PROB_ATENDER = 0.1;
     
+    printf("Atenciones en :\n");
     listaVacunacion listaSimulada = simular(TIEMPO_SIMULACION, INTERVALO_LLEGADA, PROB_ATENDER);
-    
+
+    printf("\n\n");
+
+    //Impresión de lista final
     imprimirlistaVacunacion(listaSimulada);
     
     
@@ -38,25 +42,24 @@ listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float Probab
         if( (tiempo % IntervaloLlegada) == 0){
             listaSimulada = agregaPaciente(listaSimulada, IntervaloLlegada);
         }
-        //Vacunando
-        if(atender(ProbabilidadAtender)){
+        //Vacunar a los que esperan
+        if(atender(ProbabilidadAtender, tiempo) == 1){
             listaSimulada = vacunar(listaSimulada, tiempo);
         }
     }
     return listaSimulada;
 }
 
-int atender(float umbralACheckear){
-    // Establecemos la seed para la generacion aleatoria
-    time_t t1;
-    srand(time (t1));
-    
-    //Genera Aleatorio entre 0 y 1
-//    float randNumber = (float) rand() / RAND_MAX;
-    
-    printf("&&ATENDER&&=>> %d &&", (rand()));
-    
-    if (rand() <= umbralACheckear){
+int atender(float umbralACheckear, int tiempo){
+
+    // Establecemos semilla aleatoria
+     srand(time(0) + tiempo); 
+
+    // Genera Aleatorio entre 0 y 1
+    float randNumber = (float) rand() / RAND_MAX;
+    if (randNumber <= umbralACheckear){
+        //TODO Quitar
+        printf("||%d", tiempo );
         return 1;
     }else{
         return 0;

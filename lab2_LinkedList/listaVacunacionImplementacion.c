@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "lista_vacunacion.h"
+#include "listaVacunacion.h"
+
 
 listaVacunacion inicializaListaVacunacion(void){
     listaVacunacion head = NULL;
@@ -10,6 +11,18 @@ listaVacunacion inicializaListaVacunacion(void){
 int esVacia(listaVacunacion head){
     return head == NULL;
 };
+
+int hayDesatendidos(listaVacunacion head){
+    listaVacunacion pivotPaciente = head;
+    while(pivotPaciente != NULL)
+    {
+        if (pivotPaciente->tiempoAtencion == -1){
+            return 1;
+        }
+        pivotPaciente = pivotPaciente->siguiente ;
+    };
+    return 0;    
+}
 
 listaVacunacion agregaPaciente(listaVacunacion head , int intervaloLlegada){
 
@@ -56,13 +69,15 @@ listaVacunacion agregaPaciente(listaVacunacion head , int intervaloLlegada){
 //int obtenerPacientesNoVacunados(listaVacunacion);
 
 int obtenerNumeroUltimoPaciente(listaVacunacion head){
-    if(esVacia(head)){
+    listaVacunacion pivotPaciente = head;
+
+    if(esVacia(pivotPaciente)){
         return 0;
     }else{
-        while(head->siguiente != NULL){
-            head = head->siguiente;
+        while(pivotPaciente->siguiente != NULL){
+            pivotPaciente = pivotPaciente->siguiente;
         }
-        return head->numeroLlegada;
+        return pivotPaciente->numeroLlegada;
     }
 };
 
@@ -70,14 +85,15 @@ int obtenerNumeroUltimoPaciente(listaVacunacion head){
 //float obtenerPromedioDeTiempoEspera(listaVacunacion);
 
 void imprimirlistaVacunacion(listaVacunacion head){
-   if(esVacia(head)){
+    listaVacunacion pivotPaciente = head;
+
+   if(esVacia(pivotPaciente)){
         printf("Esta lista esta vacia\n");
     }else{
-        while(head->siguiente != NULL){
-            printf("Paciente N%d: \nMomentoLlegada: %d\nMomentoAtencion: %d\n", head->numeroLlegada, head->tiempoLlegada, head->tiempoAtencion);
-            head = head->siguiente;
+        while(pivotPaciente != NULL){
+            printf("Paciente N%d: ||%d||%d||\n", pivotPaciente->numeroLlegada, pivotPaciente->tiempoLlegada, pivotPaciente->tiempoAtencion);
+            pivotPaciente = pivotPaciente->siguiente;
         };
-        printf("Paciente N%d: \nMomentoLlegada: %d\nMomentoAtencion: %d\n", head->numeroLlegada, head->tiempoLlegada, head->tiempoAtencion);
     }
      printf("\n");
 };
@@ -86,7 +102,7 @@ void imprimirlistaVacunacion(listaVacunacion head){
 //
 //   if(esVacia(head)){
 //
-//        println("Esta lista est� vacia\n");
+//        println("Esta lista esta vacia\n");
 //
 //    }else{
 //        int tiempoEspera;
@@ -105,17 +121,23 @@ void imprimirlistaVacunacion(listaVacunacion head){
 
 
 listaVacunacion vacunar(listaVacunacion head, int Tiempo){
+    if (!hayDesatendidos(head)){
+        return head;
+    }
+
     listaVacunacion pivotPaciente = head;
+
     int tiempoAcumuladoEnAtencion = 0; // Variable para acumular la unidad de tiempo por atenciones consecutivas
 //    Avanzamos hasta encontrar la atención vacia
     while (pivotPaciente->tiempoAtencion != -1){
         pivotPaciente = pivotPaciente->siguiente;
     }
 //    Agregamos el tiempo de atención
-    while (pivotPaciente->siguiente != NULL) {
-        pivotPaciente->tiempoAtencion = ((Tiempo - (pivotPaciente->tiempoLlegada)) + tiempoAcumuladoEnAtencion);
+    while (pivotPaciente != NULL) {
+        pivotPaciente->tiempoAtencion = Tiempo  + tiempoAcumuladoEnAtencion;
         tiempoAcumuladoEnAtencion++;
         pivotPaciente = pivotPaciente->siguiente;
     };
+
     return head;
 };
