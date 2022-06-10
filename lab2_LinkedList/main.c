@@ -4,7 +4,7 @@
 #include "lista_vacunacion.h"
 
 //Declaracion previa de funciones
-listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada);
+listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float ProbabilidadAtender);
 int atender(float umbralACheckear);
 
 
@@ -16,11 +16,12 @@ int main(){
     // Declaracion de Variables de Entrada
     int TIEMPO_SIMULACION = 50;
     int INTERVALO_LLEGADA = 7;
-    float PROB_ATENDER = 0.1;
+    float PROB_ATENDER = 0.25;
     
-    listaVacunacion listaSimulada = simular(TIEMPO_SIMULACION, INTERVALO_LLEGADA);
+    listaVacunacion listaSimulada = simular(TIEMPO_SIMULACION, INTERVALO_LLEGADA, PROB_ATENDER);
     
     imprimirlistaVacunacion(listaSimulada);
+    
     
     printf("Fin Ejecucion\n");
 
@@ -28,13 +29,18 @@ int main(){
 }
 
 //Crear la lista con los pacientes
-listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada){
+listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float ProbabilidadAtender){
     listaVacunacion listaSimulada = inicializaListaVacunacion();
     
     
-    for (int i = 0; i < TiempoSimulacion; i++) {
-        if( (i % IntervaloLlegada) == 0){
+    for (int tiempo = 0; tiempo < TiempoSimulacion; tiempo++) {
+        // Agregando un Pacientes
+        if( (tiempo % IntervaloLlegada) == 0){
             listaSimulada = agregaPaciente(listaSimulada, IntervaloLlegada);
+        }
+        //Vacunando
+        if(atender(ProbabilidadAtender)){
+            listaSimulada = vacunar(listaSimulada, tiempo);
         }
     }
     return listaSimulada;
@@ -43,12 +49,14 @@ listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada){
 int atender(float umbralACheckear){
     // Establecemos la seed para la generacion aleatoria
     time_t t1;
-    srand((unsigned) time (&t1));
+    srand(time (t1));
     
     //Genera Aleatorio entre 0 y 1
-    float randNumber = (float) rand() / RAND_MAX;
+//    float randNumber = (float) rand() / RAND_MAX;
     
-    if (randNumber <= umbralACheckear){
+    printf("&&ATENDER&&=>> %d &&", (rand()));
+    
+    if (rand() <= umbralACheckear){
         return 1;
     }else{
         return 0;
