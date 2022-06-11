@@ -10,20 +10,16 @@ struct paciente{
 
 listaVacunacion inicializaListaVacunacion(void);
 
-int esVacia(listaVacunacion );
+int esVacia(listaVacunacion);
 
 listaVacunacion agregaPaciente(listaVacunacion , int);
 
-int obtenerPacientesVacunados(listaVacunacion );
+int obtenerNumeroUltimoPaciente(listaVacunacion);
 
-int obtenerPacientesNoVacunados(listaVacunacion );
-
-int obtenerNumeroUltimoPaciente(listaVacunacion );
-
-float obtenerPromedioDeTiempoEspera(listaVacunacion );
+void imprimirInformacionLista(listaVacunacion);
 
 void imprimirlistaVacunacion(listaVacunacion);
 
 void imprimirTiemposEspera(listaVacunacion);
 
-listaVacunacion vacunar(listaVacunacion , int );
+listaVacunacion vacunar(listaVacunacion , int);

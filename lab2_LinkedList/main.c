@@ -8,28 +8,23 @@ listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float Probab
 int atender(float umbralACheckear,  int tiempo);
 
 
-//Funcion Principal
+//Funcion Principal que recibe : TiempoSimulacion IntervaloLlegada ProbabilidadAtender
 int main(int argc, char *argv[]){
     // Declaracion de Variables de Entrada
     int TIEMPO_SIMULACION = atoi(argv[1]);
     int INTERVALO_LLEGADA = atoi(argv[2]);
     float PROB_ATENDER = atof(argv[3]);
-
     printf("Comenzando simulacion para: Tiempo Simulacion %d || Intervalo Llegada %d || Probabilidad de Atender %.2f \n\n", TIEMPO_SIMULACION, INTERVALO_LLEGADA, PROB_ATENDER);
-        
     printf("Las atenciones fueron en:\n");
     listaVacunacion listaSimulada = simular(TIEMPO_SIMULACION, INTERVALO_LLEGADA, PROB_ATENDER);
-
     printf("\n\n");
-
-    //Impresión de lista final
+    //Impresion de lista final
     imprimirlistaVacunacion(listaSimulada);
-
-    printf("\n");
-
+    //Impresion de lista de pacientes con tiempo de espera
     imprimirTiemposEspera(listaSimulada);
-    
-    
+    //Impresion de Informacion resumen de la lista
+    imprimirInformacionLista(listaSimulada);
+    printf("\n");    
     printf("Fin Ejecucion");
     return 0;
 }
@@ -37,7 +32,6 @@ int main(int argc, char *argv[]){
 //Crear la lista con los pacientes
 listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float ProbabilidadAtender){
     listaVacunacion listaSimulada = inicializaListaVacunacion();
-    
     
     for (int tiempo = 0; tiempo < TiempoSimulacion; tiempo++) {
         // Agregando un Pacientes
@@ -53,10 +47,8 @@ listaVacunacion simular(int TiempoSimulacion, int IntervaloLlegada, float Probab
 }
 
 int atender(float umbralACheckear, int tiempo){
-
     // Establecemos semilla aleatoria
      srand(time(0) + tiempo); 
-
     // Genera Aleatorio entre 0 y 1
     float randNumber = (float) rand() / RAND_MAX;
     if (randNumber <= umbralACheckear){

@@ -52,21 +52,6 @@ listaVacunacion agregaPaciente(listaVacunacion head , int intervaloLlegada){
     }
     return head;
 };
-//
-//TODO
-//
-//int obtenerPacientesVacunados(listaVacunacion head){
-//    int pacientesVacunados = 0;
-//    if (!esVacia(head)){
-//        while(head->siguiente != NULL){
-//            pacientesVacunados++;
-//            head = head->siguiente;
-//        }
-//    }
-//    return pacientesVacunados;
-//};
-//
-//int obtenerPacientesNoVacunados(listaVacunacion);
 
 int obtenerNumeroUltimoPaciente(listaVacunacion head){
     listaVacunacion pivotPaciente = head;
@@ -81,8 +66,31 @@ int obtenerNumeroUltimoPaciente(listaVacunacion head){
     }
 };
 
-//TODO
-//float obtenerPromedioDeTiempoEspera(listaVacunacion);
+void imprimirInformacionLista(listaVacunacion head){
+    listaVacunacion pivotPaciente = head;
+    float TotalTiempoEsperaAtendidos = 0;
+    float CantidadDePacientesAtendidos = 0;
+    int Vacunados = 0;
+    int NoVacunados = 0;
+
+    if(esVacia(pivotPaciente)){
+        printf("Esta lista esta vacia\n");
+    }else{
+        while(pivotPaciente != NULL){
+            if(pivotPaciente->tiempoAtencion != -1){
+                TotalTiempoEsperaAtendidos = TotalTiempoEsperaAtendidos + (pivotPaciente->tiempoAtencion - pivotPaciente->tiempoLlegada);
+                CantidadDePacientesAtendidos = (float) pivotPaciente->numeroLlegada;
+                Vacunados++;
+            }else{
+                NoVacunados++;
+            }
+            pivotPaciente = pivotPaciente->siguiente;
+        }
+        printf("Tiempo promedio de espera (Vacunados): %.1f unidades de tiempo\n", (TotalTiempoEsperaAtendidos/CantidadDePacientesAtendidos)); 
+        printf("Pacientes vacunados: %d\n", Vacunados);     
+        printf("Pacientes sin vacunar: %d\n", NoVacunados);     
+    }
+};
 
 void imprimirlistaVacunacion(listaVacunacion head){
     listaVacunacion pivotPaciente = head;
@@ -91,7 +99,7 @@ void imprimirlistaVacunacion(listaVacunacion head){
         printf("Esta lista esta vacia\n");
     }else{
         while(pivotPaciente != NULL){
-            printf("Paciente N%d: ||%d||%d||\n", pivotPaciente->numeroLlegada, pivotPaciente->tiempoLlegada, pivotPaciente->tiempoAtencion);
+            printf("Paciente n%d: ||%d||%d||\n", pivotPaciente->numeroLlegada, pivotPaciente->tiempoLlegada, pivotPaciente->tiempoAtencion);
             pivotPaciente = pivotPaciente->siguiente;
         };
     }
@@ -118,15 +126,13 @@ void imprimirTiemposEspera(listaVacunacion head){
     }
 };
 
-
 listaVacunacion vacunar(listaVacunacion head, int Tiempo){
     if (!hayDesatendidos(head)){
         return head;
     }
-
     listaVacunacion pivotPaciente = head;
-
-    int tiempoAcumuladoEnAtencion = 0; // Variable para acumular la unidad de tiempo por atenciones consecutivas
+// Variable para acumular la unidad de tiempo por atenciones consecutivas
+    int tiempoAcumuladoEnAtencion = 0; 
 //    Avanzamos hasta encontrar la atención vacia
     while (pivotPaciente->tiempoAtencion != -1){
         pivotPaciente = pivotPaciente->siguiente;
