@@ -9,26 +9,27 @@ int atender(float umbralACheckear,  int tiempo);
 
 
 //Funcion Principal
-int main(){
-    printf("Comienza Ejecucion\n");
-    // TODO Hacer INPUT de argumentos por consola
-    //
+int main(int argc, char *argv[]){
     // Declaracion de Variables de Entrada
-    int TIEMPO_SIMULACION = 50;
-    int INTERVALO_LLEGADA = 7;
-    float PROB_ATENDER = 0.1;
-    
-    printf("Atenciones en :\n");
+    int TIEMPO_SIMULACION = atoi(argv[1]);
+    int INTERVALO_LLEGADA = atoi(argv[2]);
+    float PROB_ATENDER = atof(argv[3]);
+
+    printf("Comenzando simulacion para: Tiempo Simulacion %d || Intervalo Llegada %d || Probabilidad de Atender %.2f \n\n", TIEMPO_SIMULACION, INTERVALO_LLEGADA, PROB_ATENDER);
+        
+    printf("Las atenciones fueron en:\n");
     listaVacunacion listaSimulada = simular(TIEMPO_SIMULACION, INTERVALO_LLEGADA, PROB_ATENDER);
 
     printf("\n\n");
 
     //Impresión de lista final
     imprimirlistaVacunacion(listaSimulada);
-    
-    
-    printf("Fin Ejecucion\n");
 
+    printf("\n");
+
+    
+    
+    printf("Fin Ejecucion");
     return 0;
 }
 
