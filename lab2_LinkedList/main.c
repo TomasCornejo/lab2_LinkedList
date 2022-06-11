@@ -27,6 +27,7 @@ int main(int argc, char *argv[]){
 
     printf("\n");
 
+    imprimirTiemposEspera(listaSimulada);
     
     
     printf("Fin Ejecucion");

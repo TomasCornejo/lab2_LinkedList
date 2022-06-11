@@ -24,6 +24,6 @@ float obtenerPromedioDeTiempoEspera(listaVacunacion );
 
 void imprimirlistaVacunacion(listaVacunacion);
 
-void imprimirTiemposEsperalistaVacunacion(listaVacunacion);
+void imprimirTiemposEspera(listaVacunacion);
 
 listaVacunacion vacunar(listaVacunacion , int );

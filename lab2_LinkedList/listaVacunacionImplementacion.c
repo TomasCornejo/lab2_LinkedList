@@ -98,26 +98,25 @@ void imprimirlistaVacunacion(listaVacunacion head){
      printf("\n");
 };
 
-//void imprimirTiemposEsperalistaVacunacion(listaVacunacion head){
-//
-//   if(esVacia(head)){
-//
-//        println("Esta lista esta vacia\n");
-//
-//    }else{
-//        int tiempoEspera;
-//        println("El tiempo de espera de cada paciente es :");
-//        do{
-//            if(head->tiempoAtencion == -1){
-//                tiempoEspera = -1;
-//            }else{
-//                tiempoEspera = head->tiempoAtencion - head->tiempoLlegada;
-//            }
-//            println("p%d: %d, ", head->numeroLlegada, tiempoEspera);
-//        }while(head->siguiente != NULL);
-//        println("\n");
-//    }
-//};
+void imprimirTiemposEspera(listaVacunacion head){
+    listaVacunacion pivotPaciente = head;
+
+    if(esVacia(pivotPaciente)){
+        printf("Esta lista esta vacia\n");
+    }else{
+        int tiempoEspera = 0;
+        printf("El tiempo de espera de cada paciente es :");
+        while(pivotPaciente != NULL){
+            if(pivotPaciente->tiempoAtencion == -1){
+                printf("p%d:No Atendido, ", pivotPaciente->numeroLlegada);
+            }else{
+                printf("p%d:%d, ", pivotPaciente->numeroLlegada, ((pivotPaciente->tiempoAtencion) - (pivotPaciente->tiempoLlegada)));
+            }
+            pivotPaciente = pivotPaciente->siguiente;
+        };
+        printf("\n\n");
+    }
+};
 
 
 listaVacunacion vacunar(listaVacunacion head, int Tiempo){
