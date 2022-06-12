@@ -66,6 +66,27 @@ int obtenerNumeroUltimoPaciente(listaVacunacion head){
     }
 };
 
+listaVacunacion vacunar(listaVacunacion head, int Tiempo){
+    if (!hayDesatendidos(head)){
+        return head;
+    }
+    listaVacunacion pivotPaciente = head;
+// Variable para acumular la unidad de tiempo por atenciones consecutivas
+    int tiempoAcumuladoEnAtencion = 0; 
+//    Avanzamos hasta encontrar la atención vacia
+    while (pivotPaciente->tiempoAtencion != -1){
+        pivotPaciente = pivotPaciente->siguiente;
+    }
+//    Agregamos el tiempo de atención
+    while (pivotPaciente != NULL) {
+        pivotPaciente->tiempoAtencion = Tiempo  + tiempoAcumuladoEnAtencion;
+        tiempoAcumuladoEnAtencion++;
+        pivotPaciente = pivotPaciente->siguiente;
+    };
+
+    return head;
+};
+
 void imprimirInformacionLista(listaVacunacion head){
     listaVacunacion pivotPaciente = head;
     float TotalTiempoEsperaAtendidos = 0;
@@ -126,23 +147,4 @@ void imprimirTiemposEspera(listaVacunacion head){
     }
 };
 
-listaVacunacion vacunar(listaVacunacion head, int Tiempo){
-    if (!hayDesatendidos(head)){
-        return head;
-    }
-    listaVacunacion pivotPaciente = head;
-// Variable para acumular la unidad de tiempo por atenciones consecutivas
-    int tiempoAcumuladoEnAtencion = 0; 
-//    Avanzamos hasta encontrar la atención vacia
-    while (pivotPaciente->tiempoAtencion != -1){
-        pivotPaciente = pivotPaciente->siguiente;
-    }
-//    Agregamos el tiempo de atención
-    while (pivotPaciente != NULL) {
-        pivotPaciente->tiempoAtencion = Tiempo  + tiempoAcumuladoEnAtencion;
-        tiempoAcumuladoEnAtencion++;
-        pivotPaciente = pivotPaciente->siguiente;
-    };
 
-    return head;
-};
