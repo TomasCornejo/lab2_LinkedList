@@ -43,7 +43,7 @@ listaVacunacion agregaPaciente(listaVacunacion head , int intervaloLlegada){
     }
 
     if(esVacia(head)){
-        return head = punteroNuevoPaciente;
+        return punteroNuevoPaciente;
     } else {
         while(pivotPaciente->siguiente != NULL){
             pivotPaciente = pivotPaciente->siguiente;

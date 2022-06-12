@@ -10,6 +10,7 @@ int atender(float umbralACheckear,  int tiempo);
 
 //Funcion Principal que recibe : TiempoSimulacion IntervaloLlegada ProbabilidadAtender
 int main(int argc, char *argv[]){
+    
     // Declaracion de Variables de Entrada
     int TIEMPO_SIMULACION = atoi(argv[1]);
     int INTERVALO_LLEGADA = atoi(argv[2]);
